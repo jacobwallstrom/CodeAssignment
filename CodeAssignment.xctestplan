@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "C31A9A5A-1D1A-4DC2-8154-7F04D7DDA3B8",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:CodeAssignment.xcodeproj",
+      "identifier" : "51B7FD542C9B659E00BCA8DA",
+      "name" : "CodeAssignment"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/AppLibrary",
+        "identifier" : "AppLibraryTests",
+        "name" : "AppLibraryTests"
+      }
+    }
+  ],
+  "version" : 1
+}
