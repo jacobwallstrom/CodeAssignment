@@ -60,7 +60,7 @@ extension URLSession {
 		return result
 	}()
 
-	@MainActor func fetch<T : Decodable>(_ request: URLRequest) async throws -> T {
+	nonisolated func fetch<T : Decodable>(_ request: URLRequest) async throws -> T {
 		let (data, response) = try await data(for: request)
 		guard let response = response as? HTTPURLResponse else {
 			fatalError("Only HTTP implemented")
@@ -68,7 +68,7 @@ extension URLSession {
 		guard response.statusCode % 100 != 2 else {
 			throw Errors.badStatus(response.statusCode)
 		}
-		return try Self.decoder.decode(T.self, from: data)
+		return try await Self.decoder.decode(T.self, from: data)
 	}
 
 	enum Errors: Error {
