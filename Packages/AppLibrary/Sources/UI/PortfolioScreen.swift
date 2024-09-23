@@ -87,35 +87,7 @@ public struct PortfolioScreen: View {
 			}
 			Button("Cancel", role: .cancel) {}
 		}
-		.sheet(isPresented: $selectingPortfolio) {
-			VStack(alignment: .leading, spacing: 8) {
-				Text("Currency")
-					.textCase(.uppercase)
-					.foregroundStyle(.secondary)
-					.font(.subheadline)
-					.padding(.bottom, 8)
-				ForEach(portfolios) { portfolio in
-					HStack {
-						Button(portfolio.name) {
-							selectedPortfolio = portfolio
-							selectingPortfolio = false
-						}
-						Spacer()
-						Button(action: {
-							editingPortfolio = portfolio
-						}) {
-							Image(systemName: "pencil.and.list.clipboard")
-						}
-					}
-				}
-			}
-			.frame(maxWidth: .infinity, alignment: .leading)
-			.padding(.horizontal)
-			.padding(.vertical, 20)
-			.presentationDragIndicator(.visible)
-			.modifier(GetHeightModifier(height: $sheetHeight))
-			.presentationDetents([.height(sheetHeight)])
-		}		.fullScreenCover(isPresented: isEditingBinding) {
+		.fullScreenCover(isPresented: isEditingBinding) {
 			if let editingPortfolio {
 				EditingPortfolioScreen(portfolio: editingPortfolio, delete: {
 					portfolios.removeAll(where: { $0.id == editingPortfolio.id })
