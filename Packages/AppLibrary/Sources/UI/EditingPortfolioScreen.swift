@@ -8,16 +8,15 @@ import SwiftUI
 import Models
 
 struct EditingPortfolioScreen: View {
-	// Focus for each text field. -1 represents new row at bottom
+	// Focus for each text field.
 	enum Field: Hashable {
 		case name
 		case ticker(Int)
 		case amount(Int)
 		case cost(Int)
-
-		static let newRowTicker = Self.ticker(-1)
-		static let newRowAmount = Self.amount(-1)
-		static let newRowCost = Self.cost(-1)
+		case newRowTicker
+		case newRowAmount
+		case newRowCost
 	}
 
 	@Environment(\.dismiss) private var dismiss
