@@ -8,11 +8,16 @@ import SwiftUI
 import Models
 
 struct EditingPortfolioScreen: View {
-	enum Field {
-		case ticker
-		case amount
-		case cost
+	// Focus for each text field. -1 represents new row at bottom
+	enum Field: Hashable {
 		case name
+		case ticker(Int)
+		case amount(Int)
+		case cost(Int)
+
+		static let newRowTicker = Self.ticker(-1)
+		static let newRowAmount = Self.amount(-1)
+		static let newRowCost = Self.cost(-1)
 	}
 
 	@Environment(\.dismiss) private var dismiss
@@ -69,6 +74,8 @@ struct EditingPortfolioScreen: View {
 				TextField("", text: $portfolio.name)
 					.textFieldStyle(.roundedBorder)
 					.focused($focusedField, equals: .name)
+					.submitLabel(.next)
+					.onSubmit { focusedField = .newRowTicker }
 					.font(.title3)
 					.padding(.bottom, 24)
 
@@ -78,23 +85,25 @@ struct EditingPortfolioScreen: View {
 					.bold()
 					.padding(.bottom, 4)
 				Grid(alignment: .leading) {
-					ForEach($editableHoldings) { (holding: Binding<EditableHolding>) in
+					let count: Int = editableHoldings.count
+					ForEach(0 ..< count, id: \.self) { (row: Int) in
+						let holding = $editableHoldings[row]
 						GridRow {
 							CryptoIcon(ticker: holding.ticker.wrappedValue)
 							TextField("Ticker", value: holding.ticker, format: .uppercaseStyle)
-								.focused($focusedField, equals: .ticker)
+								.focused($focusedField, equals: .ticker(row))
 								.textFieldStyle(.roundedBorder)
 								.keyboardType(.alphabet)
 								.submitLabel(.next)
-								.onSubmit { focusedField = .amount }
+								.onSubmit { focusedField = .amount(row) }
 								.frame(width: 70)
 							TextField("Amount", value: holding.amount, format: .amountStyle(currency))
-								.focused($focusedField, equals: .amount)
+								.focused($focusedField, equals: .amount(row))
 								.textFieldStyle(.roundedBorder)
 								.keyboardType(.decimalPad)
 								.minimumScaleFactor(0.8)
 							TextField("Cost", value: holding.cost, format: .amountStyle(currency))
-								.focused($focusedField, equals: .cost)
+								.focused($focusedField, equals: .cost(row))
 								.textFieldStyle(.roundedBorder)
 								.keyboardType(.decimalPad)
 								.minimumScaleFactor(0.8)
@@ -104,7 +113,9 @@ struct EditingPortfolioScreen: View {
 					NewHoldingRow(
 						editableHoldings: $editableHoldings,
 						focusedField: $focusedField
-					)
+					).onAppear {
+						focusedField = .name
+					}
 				}
 				.fixedSize(horizontal: false, vertical: true)
 			}
