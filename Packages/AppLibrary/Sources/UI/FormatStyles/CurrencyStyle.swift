@@ -25,11 +25,6 @@ extension FloatingPointFormatStyle {
 				.formatted(baseStyle)
 		}
 
-		func parse(_ value: String) throws -> Double {
-			let parsedValue = try baseStyle.parseStrategy.parse(value)
-			return parsedValue / currency.currentValuePerUSD
-		}
-
 		private var baseStyle: FloatingPointFormatStyle<Double>.Currency {
 			.currency(code: currency.code)
 			.presentation(.narrow)
