@@ -12,6 +12,7 @@
 
 /* Begin PBXFileReference section */
 		5135E00C2C9D66C300DEDCFD /* CodeAssignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CodeAssignment.xctestplan; sourceTree = "<group>"; };
+		519FA06F2CA2AA4A00BD34B9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		51B7FD552C9B659E00BCA8DA /* CodeAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,6 +57,7 @@
 		51B7FD4C2C9B659E00BCA8DA = {
 			isa = PBXGroup;
 			children = (
+				519FA06F2CA2AA4A00BD34B9 /* README.md */,
 				5135E00C2C9D66C300DEDCFD /* CodeAssignment.xctestplan */,
 				51B7FD852C9C1F3800BCA8DA /* Packages */,
 				51B7FD572C9B659E00BCA8DA /* CodeAssignment */,
