@@ -22,7 +22,6 @@ struct CodeAssignmentApp: App {
 					await dependencies.tracker.startUpdating()
 				}
 				.environment(dependencies.repository)
-				.environment(\.currency, model.currency)
 				.tint(.orange)
         }
     }
