@@ -9,11 +9,17 @@ let package = Package(
 			name: "AppLibrary",
 			targets: ["UI", "Models", "Gateways"]),
 	],
-	dependencies: [],
+	dependencies: [
+		.package(url: "https://github.com/pointfreeco/swift-navigation.git", from: "2.0.0"),
+	],
 	targets: [
 		.target(
 			name: "UI",
-			dependencies: ["Gateways", "Models"]
+			dependencies: [
+				"Gateways",
+				"Models",
+				.product(name: "SwiftNavigation", package: "swift-navigation"),
+			]
 		),
 		.target(
 			name: "Gateways",
