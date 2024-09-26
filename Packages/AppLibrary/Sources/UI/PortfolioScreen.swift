@@ -9,64 +9,45 @@ import SwiftUI
 import Models
 
 public struct PortfolioScreen: View {
-	@Binding var portfolios: [Portfolio]
-	@Binding var currency: Currency
+	@State var model: PortfolioViewModel
 	@State private var sheetHeight: CGFloat = .zero
-	@State private var selectingPortfolio: Bool
-	@State private var selectingCurrency: Bool = false
-	@State var selectedPortfolio: Portfolio?
-	@State var editingPortfolio: Portfolio? {
-		didSet {
-			selectingPortfolio = false
-		}
-	}
 
-	public init(portfolios: Binding<[Portfolio]>, selectingPortfolio: Bool = false, currency: Binding<Currency>) {
-		_selectedPortfolio = State(initialValue: portfolios.wrappedValue.first)
-		_selectingPortfolio = State(initialValue: selectingPortfolio)
-		_portfolios = portfolios
-		_currency = currency
+	public init(model: PortfolioViewModel) {
+		self.model = model
 	}
 
 	public var body: some View {
-		let isEditingBinding = Binding<Bool> {
-			editingPortfolio != nil
-		} set: {
-			assert(!$0, "Binding only used to dismiss sheet")
-			editingPortfolio = nil
-		}
-
 		VStack {
-			if let selectedPortfolio {
+			if let selectedPortfolio = model.selectedPortfolio {
 				nonempty(portfolio: selectedPortfolio)
 			} else {
 				empty
 			}
 		}
 		.background(.background)
-		.sheet(isPresented: $selectingPortfolio) {
+		.sheet(isPresented: $model.selectingPortfolio) {
 			VStack(alignment: .leading, spacing: 8) {
 				Text("Portfolios")
 					.textCase(.uppercase)
 					.foregroundStyle(.secondary)
 					.font(.subheadline)
 					.padding(.bottom, 8)
-				ForEach(portfolios) { portfolio in
+				ForEach(model.portfolios) { portfolio in
 					HStack {
 						Button(portfolio.name) {
-							selectedPortfolio = portfolio
-							selectingPortfolio = false
+							model.selectedPortfolio = portfolio
+							model.selectingPortfolio = false
 						}
 						Spacer()
 						Button(action: {
-							editingPortfolio = portfolio
+							model.editPortfolioTapped(portfolio)
 						}) {
 							Image(systemName: "pencil.and.list.clipboard")
 						}
 					}
 				}
 				Button("Add portfolio") {
-					addPortfolio()
+					model.addPortfolioTapped()
 				}
 				.buttonStyle(.bordered)
 				.padding(.top)
@@ -79,19 +60,18 @@ public struct PortfolioScreen: View {
 			.modifier(GetHeightModifier(height: $sheetHeight))
 			.presentationDetents([.height(sheetHeight)])
 		}
-		.confirmationDialog("Select currency", isPresented: $selectingCurrency) {
-			ForEach(Currency.allCases) { currency in
-				Button(currency.code) {
-					self.currency = currency
+		.confirmationDialog("Select currency", isPresented: $model.selectingCurrency) {
+			ForEach(Currency.allCases) { c in
+				Button(c.code) {
+					model.selectedCurrency(c)
 				}
 			}
 			Button("Cancel", role: .cancel) {}
 		}
-		.fullScreenCover(isPresented: isEditingBinding) {
-			if let editingPortfolio {
+		.fullScreenCover(isPresented: model.isEditingBinding) {
+			if let editingPortfolio = model.editingPortfolio {
 				EditingPortfolioScreen(portfolio: editingPortfolio, delete: {
-					portfolios.removeAll(where: { $0.id == editingPortfolio.id })
-					selectedPortfolio = portfolios.first
+					model.deletePortfolio()
 				})
 			}
 		}
@@ -99,7 +79,7 @@ public struct PortfolioScreen: View {
 
 	@ViewBuilder var empty: some View {
 		Button("Add your first portfolio") {
-			addPortfolio()
+			model.addPortfolioTapped()
 		}
 		.buttonStyle(.borderedProminent)
 	}
@@ -109,7 +89,7 @@ public struct PortfolioScreen: View {
 		VStack {
 			HStack {
 				Button(action: {
-					selectingPortfolio = true
+					model.selectingPortfolio2()
 				}) {
 					Text("\(portfolio.name)’s Portfolio")
 						.font(.title2)
@@ -117,9 +97,9 @@ public struct PortfolioScreen: View {
 						.foregroundStyle(.tint)
 				}
 				Button(action: {
-					selectingCurrency = true
+					model.selectingCurrency2()
 				}) {
-					Text(currency.code)
+					Text(model.currency.code)
 						.font(.title2)
 					Image(systemName: "chevron.up.chevron.down")
 						.foregroundStyle(.tint)
@@ -130,7 +110,7 @@ public struct PortfolioScreen: View {
 
 			let hasValue = portfolio.currentValue != nil
 			VStack(spacing: 0) {
-				Text((portfolio.currentValue ?? 0).formatted(.currencyStyle(currency)))
+				Text((portfolio.currentValue ?? 0).formatted(.currencyStyle(model.currency)))
 					.font(.largeTitle)
 				AmountChange(change: portfolio.change, relativeChange: portfolio.relativeChange)
 			}
@@ -145,13 +125,6 @@ public struct PortfolioScreen: View {
 		}
 		.padding(.horizontal)
 		Holdings(portfolio: portfolio)
-	}
-
-	func addPortfolio() {
-		let new = Portfolio(name: "", holdings: [])
-		portfolios.append(new)
-		selectedPortfolio = new
-		editingPortfolio = new
 	}
 }
 
@@ -185,31 +158,88 @@ struct Holdings: View {
 	}
 }
 
+@Observable @MainActor
+public class PortfolioViewModel {
+	public var currency: Currency
+	var selectingPortfolio = false
+	var selectedPortfolio: Portfolio?
+	var destination: Destination?
+	var portfolios: [Portfolio]
+	var selectingCurrency: Bool = false
+	var editingPortfolio: Portfolio? {
+		didSet {
+			selectingPortfolio = false
+		}
+	}
+
+	enum Destination {
+		case selecting
+	}
+
+	public init(portfolios: [Portfolio], selectingPortfolio: Bool = false, currency: Currency) {
+		_portfolios = portfolios
+		_currency = currency
+		self.selectingPortfolio = selectingPortfolio
+		self.selectedPortfolio = portfolios.first
+
+	}
+
+	var isEditingBinding: Binding<Bool> {
+		Binding { [weak self] in
+			self?.editingPortfolio != nil
+		} set: { [weak self] newValue, _ in
+			assert(!newValue, "Binding only used to dismiss sheet")
+			self?.editingPortfolio = nil
+		}
+	}
+
+	func selectingPortfolio2() {
+		selectingPortfolio = true
+	}
+
+	func addPortfolioTapped() {
+		let new = Portfolio(name: "", holdings: [])
+		portfolios.append(new)
+		selectedPortfolio = new
+		editingPortfolio = new
+	}
+
+	func editPortfolioTapped(_ portfolio: Portfolio) {
+		editingPortfolio = portfolio
+	}
+
+	func selectingCurrency2() {
+		selectingCurrency = true
+	}
+
+	func selectedCurrency(_ currency: Currency) {
+		self.currency = currency
+	}
+
+	func deletePortfolio() {
+		guard let editingPortfolio else { fatalError() }
+		portfolios.removeAll(where: { $0.id == editingPortfolio.id })
+		selectedPortfolio = self.portfolios.first
+	}
+}
+
 #Preview("Initial") {
-	@Previewable @State var portfolios: [Portfolio] = [.mock]
-	@Previewable @State var currency = Currency.usd
-	PortfolioScreen(portfolios: $portfolios, currency: $currency)
+	@Previewable @State var model = PortfolioViewModel(portfolios: [.mock], currency: .usd)
+	PortfolioScreen(model: model)
 		.colorScheme(.dark)
 }
 
-#Preview("Sheet") {
-	@Previewable @State var portfolios: [Portfolio] = [.mock]
-	@Previewable @State var currency = Currency.sek
-	PortfolioScreen(portfolios: $portfolios, selectingPortfolio: true, currency: $currency)
-}
-
 #Preview("No data") {
-	@Previewable @State var portfolios: [Portfolio] = {
-		let result = Portfolio.mock
-		result.holdings.forEach { $0.crypto.lastPrice = nil }
-		return [.mock]
+	@Previewable @State var model = {
+		let portfolio = Portfolio.mock
+		portfolio.holdings.forEach { $0.crypto.lastPrice = nil }
+		return PortfolioViewModel(portfolios: [portfolio], selectingPortfolio: true, currency: .usd)
 	}()
-	@Previewable @State var currency = Currency.usd
-	PortfolioScreen(portfolios: $portfolios, selectingPortfolio: true, currency: $currency)
+	PortfolioScreen(model: model)
 }
 
 #Preview("Empty") {
-	@Previewable @State var portfolios: [Portfolio] = []
-	@Previewable @State var currency = Currency.usd
-	PortfolioScreen(portfolios: $portfolios, currency: $currency)
+	@Previewable @State var model = PortfolioViewModel(portfolios: [], currency: .usd)
+	PortfolioScreen(model: model)
 }
+
