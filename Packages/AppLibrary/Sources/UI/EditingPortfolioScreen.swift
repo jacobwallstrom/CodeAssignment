@@ -28,11 +28,12 @@ struct EditingPortfolioScreen: View {
 	@Bindable private var portfolio: Portfolio
 	private let delete: () -> Void
 
-	init(portfolio: Portfolio, delete: @escaping () -> Void) {
+	init(portfolio: Portfolio, delete: @escaping () -> Void, focusedField: Field? = nil) {
 		_editableHoldings = State(initialValue: portfolio.holdings
 			.map { EditableHolding(holding: $0) })
 		self.portfolio = portfolio
 		self.delete = delete
+		self.focusedField = focusedField
 	}
 
 	func save() {
@@ -52,11 +53,9 @@ struct EditingPortfolioScreen: View {
 					}
 					.foregroundStyle(.red)
 					
-					Spacer()
 					Text("Edit portfolio")
 						.font(.title2)
-					Spacer()
-					
+						.frame(maxWidth: .infinity, alignment: .center)
 					Button(action: {
 						dismiss()
 					}) {
@@ -113,7 +112,7 @@ struct EditingPortfolioScreen: View {
 						editableHoldings: $editableHoldings,
 						focusedField: $focusedField
 					).onAppear {
-						focusedField = .name
+						focusedField = .cost(0)
 					}
 				}
 				.fixedSize(horizontal: false, vertical: true)
@@ -130,12 +129,11 @@ struct EditingPortfolioScreen: View {
 		}
 		.toolbar {
 			ToolbarItemGroup(placement: .keyboard) {
-				Spacer()
 				Button("Done") {
 					withAnimation {
 						focusedField = nil
 					}
-				}
+				}.frame(maxWidth: .infinity, alignment: .trailing)
 			}
 		}
 		if focusedField == nil {
@@ -152,5 +150,10 @@ struct EditingPortfolioScreen: View {
 #Preview {
 	@Previewable @State var portfolio = Portfolio.mock
 	EditingPortfolioScreen(portfolio: portfolio, delete: { print("Deleted" )})
+}
+
+#Preview("Keyboard") {
+	@Previewable @State var portfolio = Portfolio.mock
+	EditingPortfolioScreen(portfolio: portfolio, delete: { print("Deleted" )}, focusedField: .cost(0))
 }
 

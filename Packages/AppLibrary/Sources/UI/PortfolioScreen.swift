@@ -163,7 +163,7 @@ struct Holdings: View {
 			HStack {
 				Text("Holdings")
 					.textCase(.uppercase)
-				Spacer()
+					.frame(maxWidth: .infinity, alignment: .leading)
 				Text("Value")
 					.textCase(.uppercase)
 			}

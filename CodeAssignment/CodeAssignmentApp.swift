@@ -12,7 +12,7 @@ import Models
 
 @main
 struct CodeAssignmentApp: App {
-	let dependencies = Dependencies()
+	let dependencies = Dependencies.shared
 	@State var portfolios: [Portfolio]
 	@State private var currency = Currency.usd
 
@@ -46,5 +46,9 @@ class Dependencies {
 			Holding(crypto: eth, amount: 1, cost: 3000)
 		]
 	)
+
+	static let shared = Dependencies()
+
+	private init() {}
 }
 
