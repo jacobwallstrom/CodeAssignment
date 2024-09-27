@@ -59,7 +59,7 @@ public struct PortfolioScreen: View {
 }
 
 struct Holdings: View {
-	@Bindable var portfolio: Portfolio
+	var portfolio: Portfolio
 
 	var body: some View {
 		VStack {
@@ -76,7 +76,7 @@ struct Holdings: View {
 			.bold()
 
 			ScrollView {
-				ForEach($portfolio.holdings) { holding in
+				ForEach(portfolio.holdings) { holding in
 					HoldingView(holding: holding)
 					if holding.id != portfolio.holdings.last?.id {
 						Divider()

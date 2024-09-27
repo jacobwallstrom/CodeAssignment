@@ -8,7 +8,7 @@ import SwiftUI
 import Models
 
 struct HoldingView: View {
-	@Binding var holding: Holding
+	var holding: Holding
 	@Environment(\.currency) var currency
 
 	public var body: some View {
@@ -52,17 +52,17 @@ struct HoldingView: View {
 
 
 	VStack {
-		HoldingView(holding: $mock1)
-		HoldingView(holding: $mock2)
+		HoldingView(holding: mock1)
+		HoldingView(holding: mock2)
 	}
 	.padding()
 	.background(.background)
 	.colorScheme(.dark)
 
 	VStack {
-		HoldingView(holding: $mock1)
-		HoldingView(holding: $mock2)
-		HoldingView(holding: $mock3)
+		HoldingView(holding: mock1)
+		HoldingView(holding: mock2)
+		HoldingView(holding: mock3)
 	}
 	.padding()
 	.background(.background)
