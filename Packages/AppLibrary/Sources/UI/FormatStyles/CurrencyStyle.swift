@@ -9,7 +9,7 @@ import SwiftUI
 
 public extension FormatStyle where Self == FloatingPointFormatStyle<Double>.Currency {
     static func currencyStyle(_ currency: Models.Currency) -> FloatingPointFormatStyle<Double>.CurrencyStyle {
-        return FloatingPointFormatStyle.CurrencyStyle(currency: currency)
+        FloatingPointFormatStyle.CurrencyStyle(currency: currency)
     }
 }
 

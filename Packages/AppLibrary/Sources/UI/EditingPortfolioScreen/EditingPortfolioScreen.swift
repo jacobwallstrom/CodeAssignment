@@ -46,9 +46,9 @@ struct EditingPortfolioScreen: View {
         ScrollView {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
-                    Button(action: {
+                    Button {
                         showConfirmationDialog = true
-                    }) {
+                    } label: {
                         Image(systemName: "trash")
                     }
                     .foregroundStyle(.red)
@@ -56,9 +56,9 @@ struct EditingPortfolioScreen: View {
                     Text("Edit portfolio")
                         .font(.title2)
                         .frame(maxWidth: .infinity, alignment: .center)
-                    Button(action: {
+                    Button {
                         dismiss()
-                    }) {
+                    } label: {
                         Image(systemName: "xmark")
                     }
                 }

@@ -26,9 +26,9 @@ extension PortfolioScreen {
                             model.selectedPortfolio(portfolio)
                         }
                         Spacer()
-                        Button(action: {
+                        Button {
                             model.editPortfolioTapped(portfolio)
-                        }) {
+                        } label: {
                             Image(systemName: "pencil.and.list.clipboard")
                         }
                     }

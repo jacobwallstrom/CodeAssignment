@@ -40,7 +40,9 @@ public class Portfolio: Identifiable {
     }
 
     public var description: String {
-        "\(name): \(holdings.map { "\($0.crypto.baseAsset) \($0.amount) \($0.cost) \($0.currentValue?.description ?? "nil")" })"
+        let holdingsText = holdings
+            .map { "\($0.crypto.baseAsset) \($0.amount) \($0.cost) \($0.currentValue?.description ?? "nil")" }
+        return "\(name): \(holdingsText)"
     }
 }
 

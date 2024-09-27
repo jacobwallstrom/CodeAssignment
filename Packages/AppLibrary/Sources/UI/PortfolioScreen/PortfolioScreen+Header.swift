@@ -18,18 +18,18 @@ extension PortfolioScreen {
         var body: some View {
             VStack {
                 HStack {
-                    Button(action: {
+                    Button {
                         selectPortfolioTapped()
-                    }) {
+                    } label: {
                         let name = selectedPortfolio.name
                         Text("\(name)’s Portfolio")
                             .font(.title2)
                         Image(systemName: "chevron.up.chevron.down")
                             .foregroundStyle(.tint)
                     }
-                    Button(action: {
+                    Button {
                         selectCurrencyTapped()
-                    }) {
+                    } label: {
                         Text(currency.code)
                             .font(.title2)
                         Image(systemName: "chevron.up.chevron.down")
