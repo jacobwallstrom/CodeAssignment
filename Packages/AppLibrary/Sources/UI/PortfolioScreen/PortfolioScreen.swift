@@ -30,7 +30,7 @@ public struct PortfolioScreen: View {
 					}
 				)
 				.padding(.horizontal)
-				Holdings(portfolio: selectedPortfolio)
+				HoldingsList(holdings: selectedPortfolio.holdings)
 			} else {
 				Button("Add your first portfolio") {
 					model.addPortfolioTapped()
@@ -55,36 +55,6 @@ public struct PortfolioScreen: View {
 			})
 		}
 		.environment(\.currency, model.currency)
-	}
-}
-
-struct Holdings: View {
-	var portfolio: Portfolio
-
-	var body: some View {
-		VStack {
-			HStack {
-				Text("Holdings")
-					.textCase(.uppercase)
-					.frame(maxWidth: .infinity, alignment: .leading)
-				Text("Value")
-					.textCase(.uppercase)
-			}
-			.font(.subheadline)
-			.padding(.top, 32)
-			.padding(.horizontal)
-			.bold()
-
-			ScrollView {
-				ForEach(portfolio.holdings) { holding in
-					HoldingView(holding: holding)
-					if holding.id != portfolio.holdings.last?.id {
-						Divider()
-					}
-				}
-				.padding(.horizontal)
-			}
-		}
 	}
 }
 
