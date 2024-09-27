@@ -31,7 +31,7 @@ extension PortfolioScreen {
 
 		}
 
-		func selectingPortfolio() {
+		func selectPortfolioTapped() {
 			destination = .selectingPortfolio
 		}
 
@@ -50,7 +50,7 @@ extension PortfolioScreen {
 			destination = .editingPortfolio(portfolio)
 		}
 
-		func selectingCurrency() {
+		func selectCurrencyTapped() {
 			destination = .selectingCurrency
 		}
 

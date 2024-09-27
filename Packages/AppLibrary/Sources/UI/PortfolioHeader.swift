@@ -8,17 +8,17 @@
 import SwiftUI
 import Models
 
-struct PortfolioSelector: View {
+struct PortfolioHeader: View {
 	let selectedPortfolio : Portfolio
 	let currency : Currency
-	var selectingPortfolio: () -> Void
-	var selectingCurrency: () -> Void
+	var selectPortfolioTapped: () -> Void
+	var selectCurrencyTapped: () -> Void
 
 	var body: some View {
 		VStack {
 			HStack {
 				Button(action: {
-					selectingPortfolio()
+					selectPortfolioTapped()
 				}) {
 					let name = selectedPortfolio.name
 					Text("\(name)’s Portfolio")
@@ -27,7 +27,7 @@ struct PortfolioSelector: View {
 						.foregroundStyle(.tint)
 				}
 				Button(action: {
-					selectingCurrency()
+					selectCurrencyTapped()
 				}) {
 					Text(currency.code)
 						.font(.title2)

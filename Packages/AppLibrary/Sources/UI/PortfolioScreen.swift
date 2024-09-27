@@ -19,14 +19,14 @@ public struct PortfolioScreen: View {
 	public var body: some View {
 		VStack {
 			if let selectedPortfolio = model.selectedPortfolio {
-				PortfolioSelector(
+				PortfolioHeader(
 					selectedPortfolio: selectedPortfolio,
 					currency: model.currency,
-					selectingPortfolio: {
-						model.selectingPortfolio()
+					selectPortfolioTapped: {
+						model.selectPortfolioTapped()
 					},
-					selectingCurrency: {
-						model.selectingCurrency()
+					selectCurrencyTapped: {
+						model.selectCurrencyTapped()
 					}
 				)
 				.padding(.horizontal)
