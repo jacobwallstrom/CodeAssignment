@@ -10,7 +10,7 @@ import Models
 import SwiftUINavigation
 
 public struct PortfolioScreen: View {
-	@State var model: PortfolioScreen.ViewModel
+	@State var model: ViewModel
 
 	public init(model: ViewModel) {
 		self.model = model
@@ -19,12 +19,53 @@ public struct PortfolioScreen: View {
 	public var body: some View {
 		VStack {
 			if let selectedPortfolio = model.selectedPortfolio {
-				nonempty(portfolio: selectedPortfolio)
+				VStack {
+					HStack {
+						Button(action: {
+							model.selectingPortfolio()
+						}) {
+							let name = selectedPortfolio.name
+							Text("\(name)’s Portfolio")
+								.font(.title2)
+							Image(systemName: "chevron.up.chevron.down")
+								.foregroundStyle(.tint)
+						}
+						Button(action: {
+							model.selectingCurrency()
+						}) {
+							Text(model.currency.code)
+								.font(.title2)
+							Image(systemName: "chevron.up.chevron.down")
+								.foregroundStyle(.tint)
+						}
+					}
+					.foregroundStyle(.foreground)
+					.padding(.bottom, 4)
+
+					let hasValue = selectedPortfolio.currentValue != nil
+					VStack(spacing: 0) {
+						Text((selectedPortfolio.currentValue ?? 0).formatted(.currencyStyle(model.currency)))
+							.font(.largeTitle)
+						AmountChange(change: selectedPortfolio.change, relativeChange: selectedPortfolio.relativeChange)
+					}
+					.opacity(hasValue ? 1: 0)
+					.overlay {
+						if !hasValue {
+							Loading()
+								.frame(width: 40)
+						}
+					}
+
+				}
+				.padding(.horizontal)
+				Holdings(portfolio: selectedPortfolio)
 			} else {
-				empty
+				Button("Add your first portfolio") {
+					model.addPortfolioTapped()
+				}
+				.buttonStyle(.borderedProminent)
 			}
 		}
-		.background(.background)
 		.sheet(isPresented: Binding($model.destination.selectingPortfolio)) {
 			SelectPortfolioSheet(model: model)
 		}
@@ -42,56 +83,6 @@ public struct PortfolioScreen: View {
 			})
 		}
 		.environment(\.currency, model.currency)
-	}
-
-	@ViewBuilder var empty: some View {
-		Button("Add your first portfolio") {
-			model.addPortfolioTapped()
-		}
-		.buttonStyle(.borderedProminent)
-	}
-
-	@ViewBuilder
-	func nonempty(portfolio: Portfolio) -> some View {
-		VStack {
-			HStack {
-				Button(action: {
-					model.selectingPortfolio()
-				}) {
-					Text("\(portfolio.name)’s Portfolio")
-						.font(.title2)
-					Image(systemName: "chevron.up.chevron.down")
-						.foregroundStyle(.tint)
-				}
-				Button(action: {
-					model.selectingCurrency()
-				}) {
-					Text(model.currency.code)
-						.font(.title2)
-					Image(systemName: "chevron.up.chevron.down")
-						.foregroundStyle(.tint)
-				}
-			}
-			.foregroundStyle(.foreground)
-			.padding(.bottom, 4)
-
-			let hasValue = portfolio.currentValue != nil
-			VStack(spacing: 0) {
-				Text((portfolio.currentValue ?? 0).formatted(.currencyStyle(model.currency)))
-					.font(.largeTitle)
-				AmountChange(change: portfolio.change, relativeChange: portfolio.relativeChange)
-			}
-			.opacity(hasValue ? 1: 0)
-			.overlay {
-				if !hasValue {
-					Loading()
-						.frame(width: 40)
-				}
-			}
-
-		}
-		.padding(.horizontal)
-		Holdings(portfolio: portfolio)
 	}
 }
 
