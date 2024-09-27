@@ -19,7 +19,7 @@ public struct PortfolioScreen: View {
 	public var body: some View {
 		VStack {
 			if let selectedPortfolio = model.selectedPortfolio {
-				PortfolioHeader(
+				Header(
 					selectedPortfolio: selectedPortfolio,
 					currency: model.currency,
 					selectPortfolioTapped: {
@@ -39,7 +39,7 @@ public struct PortfolioScreen: View {
 			}
 		}
 		.sheet(isPresented: Binding($model.destination.selectingPortfolio)) {
-			SelectPortfolioSheet(model: model)
+			SelectPortfolio(model: model)
 		}
 		.confirmationDialog("Select currency", isPresented: Binding($model.destination.selectingCurrency)) {
 			ForEach(Currency.allCases) { c in
