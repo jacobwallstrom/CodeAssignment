@@ -19,44 +19,16 @@ public struct PortfolioScreen: View {
 	public var body: some View {
 		VStack {
 			if let selectedPortfolio = model.selectedPortfolio {
-				VStack {
-					HStack {
-						Button(action: {
-							model.selectingPortfolio()
-						}) {
-							let name = selectedPortfolio.name
-							Text("\(name)’s Portfolio")
-								.font(.title2)
-							Image(systemName: "chevron.up.chevron.down")
-								.foregroundStyle(.tint)
-						}
-						Button(action: {
-							model.selectingCurrency()
-						}) {
-							Text(model.currency.code)
-								.font(.title2)
-							Image(systemName: "chevron.up.chevron.down")
-								.foregroundStyle(.tint)
-						}
+				PortfolioSelector(
+					selectedPortfolio: selectedPortfolio,
+					currency: model.currency,
+					selectingPortfolio: {
+						model.selectingPortfolio()
+					},
+					selectingCurrency: {
+						model.selectingCurrency()
 					}
-					.foregroundStyle(.foreground)
-					.padding(.bottom, 4)
-
-					let hasValue = selectedPortfolio.currentValue != nil
-					VStack(spacing: 0) {
-						Text((selectedPortfolio.currentValue ?? 0).formatted(.currencyStyle(model.currency)))
-							.font(.largeTitle)
-						AmountChange(change: selectedPortfolio.change, relativeChange: selectedPortfolio.relativeChange)
-					}
-					.opacity(hasValue ? 1: 0)
-					.overlay {
-						if !hasValue {
-							Loading()
-								.frame(width: 40)
-						}
-					}
-
-				}
+				)
 				.padding(.horizontal)
 				Holdings(portfolio: selectedPortfolio)
 			} else {
