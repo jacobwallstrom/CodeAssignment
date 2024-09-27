@@ -13,7 +13,7 @@ import Models
 @main
 struct CodeAssignmentApp: App {
 	let dependencies = Dependencies.shared
-	@State private var model = PortfolioViewModel(portfolios: [Dependencies.shared.samplePortfolio, Dependencies.shared.samplePortfolio2], currency: .usd)
+	@State private var model = PortfolioScreen.ViewModel(portfolios: [Dependencies.shared.samplePortfolio, Dependencies.shared.samplePortfolio2], currency: .usd)
 
 	var body: some Scene {
         WindowGroup {

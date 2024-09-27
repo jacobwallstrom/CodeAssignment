@@ -10,10 +10,10 @@ import Models
 import SwiftUINavigation
 
 public struct PortfolioScreen: View {
-	@State var model: PortfolioViewModel
+	@State var model: ViewModel
 	@State private var sheetHeight: CGFloat = .zero
 
-	public init(model: PortfolioViewModel) {
+	public init(model: ViewModel) {
 		self.model = model
 	}
 
@@ -157,63 +157,8 @@ struct Holdings: View {
 	}
 }
 
-@Observable @MainActor
-public class PortfolioViewModel {
-	@CasePathable
-	public enum Destination {
-		case selectingCurrency
-		case selectingPortfolio
-		case editingPortfolio(Portfolio)
-	}
-
-	var currency: Currency
-	var selectedPortfolio: Portfolio?
-	var destination: Destination?
-	var portfolios: [Portfolio]
-
-	public init(portfolios: [Portfolio], currency: Currency, destination: Destination? = nil) {
-		_portfolios = portfolios
-		_currency = currency
-		self.destination = destination
-		self.selectedPortfolio = portfolios.first
-
-	}
-
-	func selectingPortfolio() {
-		destination = .selectingPortfolio
-	}
-
-	func selectedPortfolio(_ portfolio: Portfolio) {
-		selectedPortfolio = portfolio
-		destination = nil
-	}
-
-	func addPortfolioTapped() {
-		let new = Portfolio(name: "", holdings: [])
-		portfolios.append(new)
-		destination = .editingPortfolio(new)
-	}
-
-	func editPortfolioTapped(_ portfolio: Portfolio) {
-		destination = .editingPortfolio(portfolio)
-	}
-
-	func selectingCurrency() {
-		destination = .selectingCurrency
-	}
-
-	func selectedCurrency(_ currency: Currency) {
-		self.currency = currency
-	}
-
-	func deletePortfolio(_ portfolio: Portfolio) {
-		portfolios.removeAll(where: { $0.id == portfolio.id })
-		selectedPortfolio = self.portfolios.first
-	}
-}
-
 #Preview("Initial") {
-	@Previewable @State var model = PortfolioViewModel(portfolios: [.mock], currency: .usd)
+	@Previewable @State var model = PortfolioScreen.ViewModel(portfolios: [.mock], currency: .usd)
 	PortfolioScreen(model: model)
 		.colorScheme(.dark)
 }
@@ -222,13 +167,13 @@ public class PortfolioViewModel {
 	@Previewable @State var model = {
 		let portfolio = Portfolio.mock
 		portfolio.holdings.forEach { $0.crypto.lastPrice = nil }
-		return PortfolioViewModel(portfolios: [portfolio], currency: .usd, destination: .selectingPortfolio)
+		return PortfolioScreen.ViewModel(portfolios: [portfolio], currency: .usd, destination: .selectingPortfolio)
 	}()
 	PortfolioScreen(model: model)
 }
 
 #Preview("Empty") {
-	@Previewable @State var model = PortfolioViewModel(portfolios: [], currency: .usd)
+	@Previewable @State var model = PortfolioScreen.ViewModel(portfolios: [], currency: .usd)
 	PortfolioScreen(model: model)
 }
 
