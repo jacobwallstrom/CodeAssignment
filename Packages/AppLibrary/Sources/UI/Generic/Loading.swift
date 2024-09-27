@@ -7,11 +7,10 @@
 import SwiftUI
 
 struct Loading: View {
-	var body: some View {
-		Image(systemName: "ellipsis")
-			.resizable()
-			.scaledToFit()
-			.symbolEffect(.breathe)
-	}
+    var body: some View {
+        Image(systemName: "ellipsis")
+            .resizable()
+            .scaledToFit()
+            .symbolEffect(.breathe)
+    }
 }
-

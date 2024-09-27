@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		515B584E2CA70DB700D88E7A /* Rakefile in Resources */ = {isa = PBXBuildFile; fileRef = 515B584D2CA70DB100D88E7A /* Rakefile */; };
+		515B58502CA70DED00D88E7A /* Brewfile in Resources */ = {isa = PBXBuildFile; fileRef = 515B584F2CA70DE900D88E7A /* Brewfile */; };
 		5185D9952CA5C24000553C34 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 5185D9942CA5C24000553C34 /* SwiftUINavigation */; };
 		51B7FD8A2C9C202600BCA8DA /* AppLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 51B7FD892C9C202600BCA8DA /* AppLibrary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5135E00C2C9D66C300DEDCFD /* CodeAssignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CodeAssignment.xctestplan; sourceTree = "<group>"; };
+		515B584D2CA70DB100D88E7A /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
+		515B584F2CA70DE900D88E7A /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
 		519FA06F2CA2AA4A00BD34B9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		51B7FD552C9B659E00BCA8DA /* CodeAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -59,6 +63,8 @@
 		51B7FD4C2C9B659E00BCA8DA = {
 			isa = PBXGroup;
 			children = (
+				515B584F2CA70DE900D88E7A /* Brewfile */,
+				515B584D2CA70DB100D88E7A /* Rakefile */,
 				519FA06F2CA2AA4A00BD34B9 /* README.md */,
 				5135E00C2C9D66C300DEDCFD /* CodeAssignment.xctestplan */,
 				51B7FD852C9C1F3800BCA8DA /* Packages */,
@@ -90,6 +96,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51B7FD792C9B659F00BCA8DA /* Build configuration list for PBXNativeTarget "CodeAssignment" */;
 			buildPhases = (
+				515B58512CA70F4900D88E7A /* Swiftformat */,
 				51B7FD512C9B659E00BCA8DA /* Sources */,
 				51B7FD522C9B659E00BCA8DA /* Frameworks */,
 				51B7FD532C9B659E00BCA8DA /* Resources */,
@@ -153,10 +160,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				515B58502CA70DED00D88E7A /* Brewfile in Resources */,
+				515B584E2CA70DB700D88E7A /* Rakefile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		515B58512CA70F4900D88E7A /* Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftformat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n# Don't run during SwiftUI previews\nif [ $ENABLE_PREVIEWS = \"YES\" ]; then exit 0; fi\n\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, run brew bundle install\"\n  exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		51B7FD512C9B659E00BCA8DA /* Sources */ = {
@@ -206,7 +236,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -270,7 +299,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
