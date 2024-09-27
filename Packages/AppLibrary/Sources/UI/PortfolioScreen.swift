@@ -10,8 +10,7 @@ import Models
 import SwiftUINavigation
 
 public struct PortfolioScreen: View {
-	@State var model: ViewModel
-	@State private var sheetHeight: CGFloat = .zero
+	@State var model: PortfolioScreen.ViewModel
 
 	public init(model: ViewModel) {
 		self.model = model
@@ -27,38 +26,7 @@ public struct PortfolioScreen: View {
 		}
 		.background(.background)
 		.sheet(isPresented: Binding($model.destination.selectingPortfolio)) {
-			VStack(alignment: .leading, spacing: 8) {
-				Text("Portfolios")
-					.textCase(.uppercase)
-					.foregroundStyle(.secondary)
-					.font(.subheadline)
-					.padding(.bottom, 8)
-				ForEach(model.portfolios) { portfolio in
-					HStack {
-						Button(portfolio.name) {
-							model.selectedPortfolio(portfolio)
-						}
-						Spacer()
-						Button(action: {
-							model.editPortfolioTapped(portfolio)
-						}) {
-							Image(systemName: "pencil.and.list.clipboard")
-						}
-					}
-				}
-				Button("Add portfolio") {
-					model.addPortfolioTapped()
-				}
-				.buttonStyle(.bordered)
-				.padding(.top)
-				.frame(maxWidth: .infinity)
-			}
-			.frame(maxWidth: .infinity, alignment: .leading)
-			.padding(.horizontal)
-			.padding(.vertical, 20)
-			.presentationDragIndicator(.visible)
-			.modifier(GetHeightModifier(height: $sheetHeight))
-			.presentationDetents([.height(sheetHeight)])
+			SelectPortfolioSheet(model: model)
 		}
 		.confirmationDialog("Select currency", isPresented: Binding($model.destination.selectingCurrency)) {
 			ForEach(Currency.allCases) { c in
