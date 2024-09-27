@@ -97,6 +97,7 @@
 			buildConfigurationList = 51B7FD792C9B659F00BCA8DA /* Build configuration list for PBXNativeTarget "CodeAssignment" */;
 			buildPhases = (
 				515B58512CA70F4900D88E7A /* Swiftformat */,
+				515B58522CA7109500D88E7A /* Swiftlint */,
 				51B7FD512C9B659E00BCA8DA /* Sources */,
 				51B7FD522C9B659E00BCA8DA /* Frameworks */,
 				51B7FD532C9B659E00BCA8DA /* Resources */,
@@ -185,6 +186,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n# Don't run during SwiftUI previews\nif [ $ENABLE_PREVIEWS = \"YES\" ]; then exit 0; fi\n\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, run brew bundle install\"\n  exit 1\nfi\n";
+		};
+		515B58522CA7109500D88E7A /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n# Don't run during SwiftUI previews\nif [ $ENABLE_PREVIEWS = \"YES\" ]; then exit 0; fi\n\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix --quiet\n  swiftlint --lenient --quiet\nelse\n  echo \"warning: SwiftLint not installed, run brew bundle install\"\n  exit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

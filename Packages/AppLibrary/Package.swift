@@ -8,10 +8,10 @@ let package = Package(
         .library(
             name: "AppLibrary",
             targets: ["UI", "Models", "Gateways"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-navigation.git", from: "2.2.0"),
+        .package(url: "https://github.com/pointfreeco/swift-navigation.git", from: "2.2.0")
     ],
     targets: [
         .target(
@@ -19,7 +19,7 @@ let package = Package(
             dependencies: [
                 "Gateways",
                 "Models",
-                .product(name: "SwiftUINavigation", package: "swift-navigation"),
+                .product(name: "SwiftUINavigation", package: "swift-navigation")
             ]
         ),
         .target(
@@ -33,7 +33,7 @@ let package = Package(
         .testTarget(
             name: "AppLibraryTests",
             dependencies: ["UI", "Models", "Gateways"]
-        ),
+        )
     ],
     swiftLanguageModes: [.v6]
 )

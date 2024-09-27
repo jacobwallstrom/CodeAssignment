@@ -49,7 +49,7 @@ public extension Portfolio {
         name: "Jacob",
         holdings: [
             Holding.mock1,
-            Holding.mock2,
+            Holding.mock2
         ]
     )
 }

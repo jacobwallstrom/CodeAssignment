@@ -37,7 +37,7 @@ class Dependencies {
         name: "Jacob",
         holdings: [
             Holding(crypto: btc, amount: 0.2, cost: 11120.68),
-            Holding(crypto: eth, amount: 1, cost: 3000),
+            Holding(crypto: eth, amount: 1, cost: 3000)
         ]
     )
     lazy var samplePortfolio2 = Portfolio(
@@ -45,7 +45,7 @@ class Dependencies {
         holdings: [
             Holding(crypto: btc, amount: 0.2, cost: 11120.68),
             Holding(crypto: eth, amount: 1, cost: 3000),
-            Holding(crypto: eth, amount: 2, cost: 3000),
+            Holding(crypto: eth, amount: 2, cost: 3000)
         ]
     )
 
