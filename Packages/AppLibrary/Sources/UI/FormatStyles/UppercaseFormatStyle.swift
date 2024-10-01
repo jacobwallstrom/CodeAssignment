@@ -7,18 +7,19 @@
 import SwiftUI
 
 struct UppercaseFormatStyle: ParseableFormatStyle {
-    var parseStrategy = UppercaseParseStrategy()
     typealias FormatInput = String
     typealias FormatOutput = String
-
-    func format(_ value: String) -> String {
-        value.uppercased()
-    }
 
     struct UppercaseParseStrategy: ParseStrategy {
         func parse(_ value: String) throws -> String {
             value.uppercased()
         }
+    }
+
+    var parseStrategy = UppercaseParseStrategy()
+
+    func format(_ value: String) -> String {
+        value.uppercased()
     }
 }
 

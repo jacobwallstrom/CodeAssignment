@@ -12,5 +12,6 @@ struct Loading: View {
             .resizable()
             .scaledToFit()
             .symbolEffect(.breathe)
+            .accessibilityLabel("Loading")
     }
 }

@@ -11,15 +11,15 @@ import OSLog
 private let logger = Logger(subsystem: "CryptoTracker", category: "tracker")
 
 public actor WazirxTracker {
-    private var session = URLSession.shared
-    private let quoteAsset: String
-    private let repository: CryptoCurrencyRepository
-
     struct CryptoUpdate: Decodable {
         let baseAsset: String
         var quoteAsset: String
         var lastPrice: String
     }
+
+    private var session = URLSession.shared
+    private let quoteAsset: String
+    private let repository: CryptoCurrencyRepository
 
     public init(repository: CryptoCurrencyRepository, quoteAsset: String = "usdt") {
         self.quoteAsset = quoteAsset
@@ -46,6 +46,7 @@ public actor WazirxTracker {
     }
 
     func fetchCurrencies() async throws -> [CryptoUpdate] {
+        // swiftlint:disable:next force_unwrapping
         let url = URL(string: "https://api.wazirx.com/sapi/v1/tickers/24hr")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
         return try await session.fetch(request)
@@ -53,6 +54,10 @@ public actor WazirxTracker {
 }
 
 extension URLSession {
+    enum Errors: Error {
+        case badStatus(Int)
+    }
+
     @MainActor private static var decoder = {
         let result = JSONDecoder()
         result.dateDecodingStrategy = .millisecondsSince1970
@@ -68,9 +73,5 @@ extension URLSession {
             throw Errors.badStatus(response.statusCode)
         }
         return try await Self.decoder.decode(T.self, from: data)
-    }
-
-    enum Errors: Error {
-        case badStatus(Int)
     }
 }

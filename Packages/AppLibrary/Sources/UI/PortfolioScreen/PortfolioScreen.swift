@@ -10,11 +10,7 @@ import SwiftUI
 import SwiftUINavigation
 
 public struct PortfolioScreen: View {
-    @State var model: ViewModel
-
-    public init(model: ViewModel) {
-        self.model = model
-    }
+    @State private var model: ViewModel
 
     public var body: some View {
         VStack {
@@ -50,11 +46,15 @@ public struct PortfolioScreen: View {
             Button("Cancel", role: .cancel) {}
         }
         .fullScreenCover(item: $model.destination.editingPortfolio) { item in
-            EditingPortfolioScreen(portfolio: item, delete: {
+            EditingPortfolioScreen(portfolio: item) {
                 model.deletePortfolio(item)
-            })
+            }
         }
         .environment(\.currency, model.currency)
+    }
+
+    public init(model: ViewModel) {
+        self.model = model
     }
 }
 

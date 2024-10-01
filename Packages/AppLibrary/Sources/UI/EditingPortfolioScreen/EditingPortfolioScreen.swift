@@ -28,20 +28,6 @@ struct EditingPortfolioScreen: View {
     @Bindable private var portfolio: Portfolio
     private let delete: () -> Void
 
-    init(portfolio: Portfolio, delete: @escaping () -> Void, focusedField: Field? = nil) {
-        _editableHoldings = State(initialValue: portfolio.holdings
-            .map { EditableHolding(holding: $0) })
-        self.portfolio = portfolio
-        self.delete = delete
-        self.focusedField = focusedField
-    }
-
-    func save() {
-        portfolio.holdings = editableHoldings
-            .filter { $0.amount > 0 }
-            .compactMap { $0.holding(cryptoCurrencyRepository) }
-    }
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -50,6 +36,7 @@ struct EditingPortfolioScreen: View {
                         showConfirmationDialog = true
                     } label: {
                         Image(systemName: "trash")
+                            .accessibilityLabel("Delete")
                     }
                     .foregroundStyle(.red)
 
@@ -60,6 +47,7 @@ struct EditingPortfolioScreen: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
+                            .accessibilityLabel("Close")
                     }
                 }
                 .padding(.bottom, 24)
@@ -145,11 +133,25 @@ struct EditingPortfolioScreen: View {
             .frame(maxWidth: .infinity)
         }
     }
+
+    init(portfolio: Portfolio, delete: @escaping () -> Void, focusedField: Field? = nil) {
+        _editableHoldings = State(initialValue: portfolio.holdings
+            .map { EditableHolding(holding: $0) })
+        self.portfolio = portfolio
+        self.delete = delete
+        self.focusedField = focusedField
+    }
+
+    func save() {
+        portfolio.holdings = editableHoldings
+            .filter { $0.amount > 0 }
+            .compactMap { $0.holding(cryptoCurrencyRepository) }
+    }
 }
 
 #Preview {
     @Previewable @State var portfolio = Portfolio.mock
-    EditingPortfolioScreen(portfolio: portfolio, delete: { print("Deleted") })
+    EditingPortfolioScreen(portfolio: portfolio) { print("Deleted") }
 }
 
 #Preview("Keyboard") {

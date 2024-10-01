@@ -12,7 +12,7 @@ extension PortfolioScreen {
         var holding: Holding
         @Environment(\.currency) var currency
 
-        public var body: some View {
+        var body: some View {
             HStack {
                 CryptoIcon(ticker: holding.crypto.baseAsset)
                 VStack(alignment: .leading) {

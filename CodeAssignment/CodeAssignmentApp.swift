@@ -16,7 +16,7 @@ struct CodeAssignmentApp: App {
     @State private var model = PortfolioScreen.ViewModel(
         portfolios: [
             Dependencies.shared.samplePortfolio,
-            Dependencies.shared.samplePortfolio2
+            Dependencies.shared.samplePortfolio2,
         ],
         currency: .usd
     )
@@ -35,6 +35,8 @@ struct CodeAssignmentApp: App {
 
 @MainActor
 class Dependencies {
+    static let shared = Dependencies()
+
     lazy var repository = CryptoCurrencyRepository.defaultValue
     lazy var tracker = WazirxTracker(repository: repository)
     lazy var btc = repository.getCurrency("btc")
@@ -43,7 +45,7 @@ class Dependencies {
         name: "Jacob",
         holdings: [
             Holding(crypto: btc, amount: 0.2, cost: 11120.68),
-            Holding(crypto: eth, amount: 1, cost: 3000)
+            Holding(crypto: eth, amount: 1, cost: 3000),
         ]
     )
     lazy var samplePortfolio2 = Portfolio(
@@ -51,11 +53,9 @@ class Dependencies {
         holdings: [
             Holding(crypto: btc, amount: 0.2, cost: 11120.68),
             Holding(crypto: eth, amount: 1, cost: 3000),
-            Holding(crypto: eth, amount: 2, cost: 3000)
+            Holding(crypto: eth, amount: 2, cost: 3000),
         ]
     )
-
-    static let shared = Dependencies()
 
     private init() {}
 }

@@ -23,9 +23,11 @@ struct CryptoIcon: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 32)
+                .accessibilityHidden(true)
         } else {
             Image(systemName: "questionmark.circle")
                 .frame(width: 32)
+                .accessibilityHidden(true)
         }
     }
 }

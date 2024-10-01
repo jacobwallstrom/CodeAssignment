@@ -30,6 +30,7 @@ extension PortfolioScreen {
                             model.editPortfolioTapped(portfolio)
                         } label: {
                             Image(systemName: "pencil.and.list.clipboard")
+                                .accessibilityLabel("Edit")
                         }
                     }
                 }

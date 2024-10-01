@@ -58,7 +58,7 @@ public extension PortfolioScreen {
         }
 
         func deletePortfolio(_ portfolio: Portfolio) {
-            portfolios.removeAll(where: { $0.id == portfolio.id })
+            portfolios.removeAll { $0.id == portfolio.id }
             selectedPortfolio = portfolios.first
         }
     }

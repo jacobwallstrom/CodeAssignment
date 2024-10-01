@@ -34,15 +34,15 @@ public class Portfolio: Identifiable {
         }
     }
 
-    public init(name: String, holdings: [Holding]) {
-        self.name = name
-        self.holdings = holdings
-    }
-
     public var description: String {
         let holdingsText = holdings
             .map { "\($0.crypto.baseAsset) \($0.amount) \($0.cost) \($0.currentValue?.description ?? "nil")" }
         return "\(name): \(holdingsText)"
+    }
+
+    public init(name: String, holdings: [Holding]) {
+        self.name = name
+        self.holdings = holdings
     }
 }
 
@@ -51,7 +51,7 @@ public extension Portfolio {
         name: "Jacob",
         holdings: [
             Holding.mock1,
-            Holding.mock2
+            Holding.mock2,
         ]
     )
 }

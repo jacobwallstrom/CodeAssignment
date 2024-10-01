@@ -1,5 +1,5 @@
 //
-//  PercentStyle.swift
+//  FormatStyle+percentStyle.swift
 //  AppLibrary
 //
 //  Created by Jacob Wallström on 2024-09-23.

@@ -16,6 +16,7 @@ public extension FormatStyle where Self == FloatingPointFormatStyle<Double>.Curr
 public extension FloatingPointFormatStyle {
     struct CurrencyStyle: FormatStyle {
         let currency: Models.Currency
+
         public typealias FormatInput = Double
         public typealias FormatOutput = String
 

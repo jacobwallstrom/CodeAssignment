@@ -17,6 +17,7 @@ public extension FloatingPointFormatStyle {
     struct ChangeStyle: ParseableFormatStyle {
         public var parseStrategy: ChangeStyleParseStrategy
         let currency: Models.Currency
+
         public typealias FormatInput = Double
         public typealias FormatOutput = String
 

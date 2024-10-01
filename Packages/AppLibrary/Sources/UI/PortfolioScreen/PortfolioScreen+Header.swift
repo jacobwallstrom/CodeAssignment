@@ -26,6 +26,7 @@ extension PortfolioScreen {
                             .font(.title2)
                         Image(systemName: "chevron.up.chevron.down")
                             .foregroundStyle(.tint)
+                            .accessibilityLabel("Select Portfolio")
                     }
                     Button {
                         selectCurrencyTapped()
@@ -34,6 +35,7 @@ extension PortfolioScreen {
                             .font(.title2)
                         Image(systemName: "chevron.up.chevron.down")
                             .foregroundStyle(.tint)
+                            .accessibilityLabel("Select Currency")
                     }
                 }
                 .foregroundStyle(.foreground)
