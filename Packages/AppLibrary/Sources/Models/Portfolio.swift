@@ -4,7 +4,7 @@
 //
 //  Created by Jacob Wallström on 2024-09-19.
 //
-import SwiftUI
+import Observation
 
 @Observable @MainActor
 public class Portfolio: Identifiable {

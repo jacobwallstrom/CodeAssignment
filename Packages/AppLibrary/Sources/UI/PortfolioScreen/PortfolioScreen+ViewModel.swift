@@ -4,9 +4,9 @@
 //
 //  Created by Jacob Wallström on 2024-09-27.
 //
+import CasePaths
 import Models
 import SwiftUI
-import SwiftUINavigation
 
 public extension PortfolioScreen {
     @Observable @MainActor

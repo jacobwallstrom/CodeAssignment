@@ -5,7 +5,7 @@
 //  Created by Jacob Wallström on 2024-09-19.
 //
 import Foundation
-import SwiftUI
+import Observation
 
 @Observable @MainActor
 public final class CryptoCurrency {
