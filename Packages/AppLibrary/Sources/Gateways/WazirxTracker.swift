@@ -8,7 +8,10 @@ import Foundation
 import Models
 import OSLog
 
-private let logger = Logger(subsystem: "CryptoTracker", category: "tracker")
+extension Logger {
+    private static let subsystem = Bundle.main.bundleIdentifier!
+    static let tracker = Logger(subsystem: subsystem, category: "tracker")
+}
 
 public actor WazirxTracker {
     struct CryptoUpdate: Decodable {
@@ -27,7 +30,7 @@ public actor WazirxTracker {
     }
 
     public func startUpdating() async {
-        logger.debug("Fetching task started")
+        Logger.tracker.debug("Fetching task started")
         repeat {
             do {
                 for update in try await fetchCurrencies() {
@@ -39,10 +42,10 @@ public actor WazirxTracker {
                 }
                 try? await Task.sleep(for: .seconds(10))
             } catch {
-                logger.error("\(error.localizedDescription)")
+                Logger.tracker.error("\(error.localizedDescription)")
             }
         } while !Task.isCancelled
-        logger.debug("Fetching task cancelled")
+        Logger.tracker.debug("Fetching task cancelled")
     }
 
     func fetchCurrencies() async throws -> [CryptoUpdate] {
