@@ -4,7 +4,7 @@
 //
 //  Created by Jacob Wallström on 2024-09-21.
 //
-import SwiftUI
+import Observation
 
 @MainActor @Observable
 public class CryptoCurrencyRepository {
@@ -27,16 +27,4 @@ public class CryptoCurrencyRepository {
         guard getCurrency(baseAsset).lastPrice != lastPrice else { return }
         getCurrency(baseAsset).lastPrice = lastPrice
     }
-}
-
-public extension EnvironmentValues {
-    var cryptoCurrencyRepository: CryptoCurrencyRepository {
-        get { self[CryptoCurrencyRepository.self] } set {
-            self[CryptoCurrencyRepository.self] = newValue
-        }
-    }
-}
-
-extension CryptoCurrencyRepository: EnvironmentKey {
-    public nonisolated static let defaultValue = CryptoCurrencyRepository()
 }

@@ -4,7 +4,7 @@
 //
 //  Created by Jacob Wallström on 2024-09-19.
 //
-import SwiftUI
+import Observation
 
 public enum Currency: String, Sendable, CaseIterable, Codable {
     case usd
@@ -22,16 +22,4 @@ public enum Currency: String, Sendable, CaseIterable, Codable {
 
 extension Currency: Identifiable {
     public var id: String { rawValue }
-}
-
-public extension EnvironmentValues {
-    var currency: Currency {
-        get { self[CurrencyKey.self] } set {
-            self[CurrencyKey.self] = newValue
-        }
-    }
-}
-
-public struct CurrencyKey: EnvironmentKey {
-    public static let defaultValue = Currency.usd
 }

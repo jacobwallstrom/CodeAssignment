@@ -9,6 +9,7 @@ import Models
 import OSLog
 
 extension Logger {
+    // swiftlint:disable:next force_unwrapping
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let tracker = Logger(subsystem: subsystem, category: "tracker")
 }
