@@ -4,6 +4,7 @@
 //
 //  Created by Jacob Wallström on 2024-09-21.
 //
+import Models
 import Observation
 
 @MainActor @Observable

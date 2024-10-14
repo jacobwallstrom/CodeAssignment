@@ -105,6 +105,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				51FB4D9D2CBD33DF00C02D5C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				51B7FD572C9B659E00BCA8DA /* CodeAssignment */,
@@ -218,6 +219,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51FB4D9D2CBD33DF00C02D5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 51FB4D9C2CBD33DF00C02D5C /* AppLibrary */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		51B7FD772C9B659F00BCA8DA /* Debug */ = {
@@ -444,6 +452,10 @@
 			productName = SwiftUINavigation;
 		};
 		51B7FD892C9C202600BCA8DA /* AppLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppLibrary;
+		};
+		51FB4D9C2CBD33DF00C02D5C /* AppLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppLibrary;
 		};

@@ -1,5 +1,5 @@
 import Foundation
-@testable import Gateways
+@testable import Interfaces
 @testable import Models
 import Testing
 
@@ -24,7 +24,7 @@ import Testing
         }
         """.utf8
     )
-    let result = try decoder.decode(WazirxTracker.CryptoUpdate.self, from: data)
+    let result = try decoder.decode(CurrencyTracker.CryptoUpdate.self, from: data)
 
     #expect(result.baseAsset == "btc")
     #expect(result.quoteAsset == "inr")

@@ -5,12 +5,13 @@
 //  Created by Jacob Wallström on 2024-09-18.
 //
 
+import Adapters
 import Models
 import SwiftUI
 import SwiftUINavigation
 
 public struct PortfolioScreen: View {
-    @State private var model: ViewModel
+    @State private var model: PortfolioViewModel
 
     public var body: some View {
         VStack {
@@ -53,13 +54,13 @@ public struct PortfolioScreen: View {
         .environment(\.currency, model.currency)
     }
 
-    public init(model: ViewModel) {
+    public init(model: PortfolioViewModel) {
         self.model = model
     }
 }
 
 #Preview("Initial") {
-    @Previewable @State var model = PortfolioScreen.ViewModel(portfolios: [.mock], currency: .usd)
+    @Previewable @State var model = PortfolioViewModel(portfolios: [.mock], currency: .usd)
     PortfolioScreen(model: model)
         .colorScheme(.dark)
 }
@@ -68,12 +69,12 @@ public struct PortfolioScreen: View {
     @Previewable @State var model = {
         let portfolio = Portfolio.mock
         portfolio.holdings.forEach { $0.crypto.lastPrice = nil }
-        return PortfolioScreen.ViewModel(portfolios: [portfolio], currency: .usd, destination: .selectingPortfolio)
+        return PortfolioViewModel(portfolios: [portfolio], currency: .usd, destination: .selectingPortfolio)
     }()
     PortfolioScreen(model: model)
 }
 
 #Preview("Empty") {
-    @Previewable @State var model = PortfolioScreen.ViewModel(portfolios: [], currency: .usd)
+    @Previewable @State var model = PortfolioViewModel(portfolios: [], currency: .usd)
     PortfolioScreen(model: model)
 }

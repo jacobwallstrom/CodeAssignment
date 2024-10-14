@@ -6,6 +6,7 @@
 //
 import Models
 import SwiftUI
+import UseCases
 
 extension EditingPortfolioScreen {
     struct NewHoldingRow: View {

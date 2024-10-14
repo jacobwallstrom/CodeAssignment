@@ -7,23 +7,33 @@ let package = Package(
     products: [
         .library(
             name: "AppLibrary",
-            targets: ["UI", "Models", "Gateways"]
+            targets: ["Adapters", "UseCases", "Models", "Infrastructure"]
         ),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-navigation.git", from: "2.2.0"),
+        .package(url: "https://github.com/pointfreeco/swift-case-paths.git", from: "1.0.0"),
     ],
     targets: [
         .target(
-            name: "UI",
+            name: "Infrastructure",
             dependencies: [
-                "Gateways",
                 "Models",
+                "UseCases",
+                "Adapters",
                 .product(name: "SwiftUINavigation", package: "swift-navigation"),
             ]
         ),
         .target(
-            name: "Gateways",
+            name: "Adapters",
+            dependencies: [
+                "Models",
+                "UseCases",
+                .product(name: "CasePaths", package: "swift-case-paths"),
+            ]
+        ),
+        .target(
+            name: "UseCases",
             dependencies: ["Models"]
         ),
         .target(
@@ -32,7 +42,7 @@ let package = Package(
         ),
         .testTarget(
             name: "AppLibraryTests",
-            dependencies: ["UI", "Models", "Gateways"]
+            dependencies: ["Adapters", "Models", "UseCases"]
         ),
     ],
     swiftLanguageModes: [.v6]

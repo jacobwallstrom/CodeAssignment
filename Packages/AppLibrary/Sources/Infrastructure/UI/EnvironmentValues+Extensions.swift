@@ -6,6 +6,7 @@
 //
 import Models
 import SwiftUI
+import UseCases
 
 public extension EnvironmentValues {
     var cryptoCurrencyRepository: CryptoCurrencyRepository {

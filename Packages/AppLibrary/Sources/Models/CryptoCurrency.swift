@@ -12,7 +12,7 @@ public final class CryptoCurrency {
     public let baseAsset: String
     public var lastPrice: Double?
 
-    init(baseAsset: String, quoteAsset _: String = "usdt", lastPrice: Double? = nil) {
+    public init(baseAsset: String, quoteAsset _: String = "usdt", lastPrice: Double? = nil) {
         self.baseAsset = baseAsset
         self.lastPrice = lastPrice
     }

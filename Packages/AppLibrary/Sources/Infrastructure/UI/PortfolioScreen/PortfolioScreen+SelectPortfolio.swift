@@ -4,13 +4,14 @@
 //
 //  Created by Jacob Wallström on 2024-09-27.
 //
+import Adapters
 import Models
 import SwiftUI
 import SwiftUINavigation
 
 extension PortfolioScreen {
     struct SelectPortfolio: View {
-        @State var model: PortfolioScreen.ViewModel
+        @State var model: PortfolioViewModel
         @State private var sheetHeight: CGFloat = .zero
 
         var body: some View {

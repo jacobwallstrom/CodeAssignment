@@ -5,15 +5,16 @@
 //  Created by Jacob Wallström on 2024-09-18.
 //
 
-import Gateways
+import Adapters
+import Infrastructure
 import Models
 import SwiftUI
-import UI
+import UseCases
 
 @main
 struct CodeAssignmentApp: App {
     let dependencies = Dependencies.shared
-    @State private var model = PortfolioScreen.ViewModel(
+    @State private var model = PortfolioViewModel(
         portfolios: [
             Dependencies.shared.samplePortfolio,
             Dependencies.shared.samplePortfolio2,
@@ -38,7 +39,8 @@ class Dependencies {
     static let shared = Dependencies()
 
     lazy var repository = CryptoCurrencyRepository.defaultValue
-    lazy var tracker = WazirxTracker(repository: repository)
+    lazy var provider = WazirRateProvider()
+    lazy var tracker = UpdateCurrencies(repository: repository, provider: provider)
     lazy var btc = repository.getCurrency("btc")
     lazy var eth = repository.getCurrency("eth")
     lazy var samplePortfolio = Portfolio(
