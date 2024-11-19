@@ -65,11 +65,21 @@ public struct PortfolioScreen: View {
         .colorScheme(.dark)
 }
 
+#Preview("Data") {
+    @Previewable @State var model = PortfolioViewModel(portfolios: [.mock], currency: .usd)
+    PortfolioScreen(model: model)
+}
+
+#Preview("Selecting portfolio") {
+    @Previewable @State var model = PortfolioViewModel(portfolios: [.mock], currency: .usd)
+    PortfolioScreen(model: model)
+}
+
 #Preview("No data") {
     @Previewable @State var model = {
         let portfolio = Portfolio.mock
         portfolio.holdings.forEach { $0.crypto.lastPrice = nil }
-        return PortfolioViewModel(portfolios: [portfolio], currency: .usd, destination: .selectingPortfolio)
+        return PortfolioViewModel(portfolios: [portfolio], currency: .usd)
     }()
     PortfolioScreen(model: model)
 }

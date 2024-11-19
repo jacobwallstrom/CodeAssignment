@@ -22,12 +22,12 @@ extension PortfolioScreen {
                         .bold()
                     HStack(spacing: 2) {
                         let atPrice = if let lastPrice = holding.crypto.lastPrice {
-                            " at \(lastPrice.formatted(.currencyStyle(currency)))"
+                            "at \(lastPrice.formatted(.currencyStyle(currency)))"
                         } else {
                             ""
                         }
                         Text(
-                            "\(holding.amount.formatted(.amountStyle(currency))) \(atPrice)"
+							"\(holding.amount.formatted()) \(atPrice)"
                         )
                         .font(.footnote)
                     }
@@ -66,6 +66,7 @@ extension PortfolioScreen {
         PortfolioScreen.HoldingView(holding: mock3)
     }
     .padding()
+    .environment(\.currency, .sek)
     .background(.background)
     .colorScheme(.light)
 }

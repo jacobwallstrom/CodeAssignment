@@ -13,7 +13,7 @@ public enum Currency: String, Sendable, CaseIterable, Codable {
     public var currentValuePerUSD: Double {
         switch self {
         case .usd: 1.0
-        case .sek: 10.13
+        case .sek: 10.00
         }
     }
 

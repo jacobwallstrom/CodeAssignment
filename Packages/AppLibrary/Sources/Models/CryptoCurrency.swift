@@ -21,12 +21,12 @@ public final class CryptoCurrency {
 public extension CryptoCurrency {
     static let mockBtc = CryptoCurrency(
         baseAsset: "BTC",
-        lastPrice: 55711.11
+        lastPrice: 64693
     )
 
     static let mockEth = CryptoCurrency(
         baseAsset: "ETH",
-        lastPrice: 2178.05
+        lastPrice: 3435.89
     )
 
     static let noPrice = CryptoCurrency(
