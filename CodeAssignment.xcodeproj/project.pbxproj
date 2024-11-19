@@ -6,6 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		5189AA072CECE000006BFF5F /* Format */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5189AA0A2CECE000006BFF5F /* Build configuration list for PBXAggregateTarget "Format" */;
+			buildPhases = (
+				5189AA0B2CECE02A006BFF5F /* Format */,
+				51DB92F92CECE71100292706 /* Lint */,
+			);
+			dependencies = (
+			);
+			name = Format;
+			packageProductDependencies = (
+			);
+			productName = Format;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		5185D9952CA5C24000553C34 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 5185D9942CA5C24000553C34 /* SwiftUINavigation */; };
 		51B7FD8A2C9C202600BCA8DA /* AppLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 51B7FD892C9C202600BCA8DA /* AppLibrary */; };
@@ -96,8 +113,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51B7FD792C9B659F00BCA8DA /* Build configuration list for PBXNativeTarget "CodeAssignment" */;
 			buildPhases = (
-				515B58512CA70F4900D88E7A /* Swiftformat */,
-				515B58522CA7109500D88E7A /* Swiftlint */,
 				51B7FD512C9B659E00BCA8DA /* Sources */,
 				51B7FD522C9B659E00BCA8DA /* Frameworks */,
 				51B7FD532C9B659E00BCA8DA /* Resources */,
@@ -128,8 +143,11 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					5189AA072CECE000006BFF5F = {
+						CreatedOnToolsVersion = 16.1;
+					};
 					51B7FD542C9B659E00BCA8DA = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -153,6 +171,7 @@
 			projectRoot = "";
 			targets = (
 				51B7FD542C9B659E00BCA8DA /* CodeAssignment */,
+				5189AA072CECE000006BFF5F /* Format */,
 			);
 		};
 /* End PBXProject section */
@@ -168,7 +187,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		515B58512CA70F4900D88E7A /* Swiftformat */ = {
+		5189AA0B2CECE02A006BFF5F /* Format */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -178,17 +197,17 @@
 			);
 			inputPaths = (
 			);
-			name = Swiftformat;
+			name = Format;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n# Don't run during SwiftUI previews\nif [ $ENABLE_PREVIEWS = \"YES\" ]; then exit 0; fi\n\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, run brew bundle install\"\n  exit 1\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, run brew bundle install\"\n  exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		515B58522CA7109500D88E7A /* Swiftlint */ = {
+		51DB92F92CECE71100292706 /* Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -198,14 +217,14 @@
 			);
 			inputPaths = (
 			);
-			name = Swiftlint;
+			name = Lint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n# Don't run during SwiftUI previews\nif [ $ENABLE_PREVIEWS = \"YES\" ]; then exit 0; fi\n\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix --quiet\n  swiftlint --lenient --quiet\nelse\n  echo \"warning: SwiftLint not installed, run brew bundle install\"\n  exit 1\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix --quiet\n  swiftlint --lenient --quiet\nelse\n  echo \"warning: SwiftLint not installed, run brew bundle install\"\n  exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -228,6 +247,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5189AA082CECE000006BFF5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NNR8Z984DK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5189AA092CECE000006BFF5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NNR8Z984DK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		51B7FD772C9B659F00BCA8DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -265,6 +302,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -328,6 +366,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -414,6 +453,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5189AA0A2CECE000006BFF5F /* Build configuration list for PBXAggregateTarget "Format" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5189AA082CECE000006BFF5F /* Debug */,
+				5189AA092CECE000006BFF5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		51B7FD502C9B659E00BCA8DA /* Build configuration list for PBXProject "CodeAssignment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
