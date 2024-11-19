@@ -1,5 +1,5 @@
 {
-  "originHash" : "fd900c0139f7c92a4be4432d975caaa135c18b35e9d95d55cb20b1828d44e6e1",
+  "originHash" : "6835b0b95877eb8622ee6e8eb88c048218776a8fa5e355aeca1ab182bf170997",
   "pins" : [
     {
       "identity" : "swift-case-paths",
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-navigation.git",
       "state" : {
-        "revision" : "d1bdbd8a5d1d1dfd2e4bb1f5e2f6facb631404d4",
-        "version" : "2.2.1"
+        "revision" : "16a27ab7ae0abfefbbcba73581b3e2380b47a579",
+        "version" : "2.2.2"
       }
     },
     {
