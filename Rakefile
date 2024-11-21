@@ -10,7 +10,7 @@ task :periphery do
 end
 
 task :periphery_xcode do
-  sh "periphery scan --format xcode"
+  sh "periphery scan --skip-build --format xcode"
 end
 
 desc "Does a style check of the source code"

@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		5152C9E22CEF383000BF7AC9 /* Periphery */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5152C9E52CEF383000BF7AC9 /* Build configuration list for PBXAggregateTarget "Periphery" */;
+			buildPhases = (
+				5152C9E62CEF384000BF7AC9 /* Periphery */,
+			);
+			dependencies = (
+				515FEC272CEFBAC900493F6D /* PBXTargetDependency */,
+			);
+			name = Periphery;
+			packageProductDependencies = (
+			);
+			productName = Periphery;
+		};
 		5189AA072CECE000006BFF5F /* Format */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 5189AA0A2CECE000006BFF5F /* Build configuration list for PBXAggregateTarget "Format" */;
@@ -27,6 +41,16 @@
 		5185D9952CA5C24000553C34 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 5185D9942CA5C24000553C34 /* SwiftUINavigation */; };
 		51B7FD8A2C9C202600BCA8DA /* AppLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 51B7FD892C9C202600BCA8DA /* AppLibrary */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		515FEC262CEFBAC900493F6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51B7FD4D2C9B659E00BCA8DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51B7FD542C9B659E00BCA8DA;
+			remoteInfo = CodeAssignment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5135E00C2C9D66C300DEDCFD /* CodeAssignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CodeAssignment.xctestplan; sourceTree = "<group>"; };
@@ -145,6 +169,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					5152C9E22CEF383000BF7AC9 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 					5189AA072CECE000006BFF5F = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -172,6 +199,7 @@
 			targets = (
 				51B7FD542C9B659E00BCA8DA /* CodeAssignment */,
 				5189AA072CECE000006BFF5F /* Format */,
+				5152C9E22CEF383000BF7AC9 /* Periphery */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +215,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5152C9E62CEF384000BF7AC9 /* Periphery */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Periphery;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=$PATH:/opt/homebrew/bin\nrake periphery_xcode\n";
+			showEnvVarsInLog = 0;
+		};
 		5189AA0B2CECE02A006BFF5F /* Format */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -240,6 +288,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		515FEC272CEFBAC900493F6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51B7FD542C9B659E00BCA8DA /* CodeAssignment */;
+			targetProxy = 515FEC262CEFBAC900493F6D /* PBXContainerItemProxy */;
+		};
 		51FB4D9D2CBD33DF00C02D5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 51FB4D9C2CBD33DF00C02D5C /* AppLibrary */;
@@ -247,6 +300,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5152C9E32CEF383000BF7AC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NNR8Z984DK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5152C9E42CEF383000BF7AC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NNR8Z984DK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		5189AA082CECE000006BFF5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -453,6 +524,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5152C9E52CEF383000BF7AC9 /* Build configuration list for PBXAggregateTarget "Periphery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5152C9E32CEF383000BF7AC9 /* Debug */,
+				5152C9E42CEF383000BF7AC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5189AA0A2CECE000006BFF5F /* Build configuration list for PBXAggregateTarget "Format" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
